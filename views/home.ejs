@@ -1,0 +1,29 @@
+<%- include header.ejs %>
+
+<% allBlog.forEach((blog)=>{ %>
+
+<div class="blogDiv">
+
+  <h2><%= blog.title %></h2>
+  <h6><%= blog.author %></h6>
+  <img align=center id="blogImage" src="/public/images/upload/<%= blog.image %>" alt="">
+
+  <p id="blogdescription"><%= blog.body %>
+  </p>
+
+</div>
+<% })%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include footer.ejs %>

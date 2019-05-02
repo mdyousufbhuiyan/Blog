@@ -1,0 +1,81 @@
+<%- include header.ejs %>
+<link href="/public/css/addpost.css" rel="stylesheet" type="text/css">
+
+<form method="POST" action="/ourblog/addPost/" style="margin: 5%" enctype="multipart/form-data" type="text"
+    autocomplete="off">
+    <div class="formHeadDiv">
+        <!-- <label>Name:</label> <br> -->
+        <!-- Large input -->
+        <input name="title" class="form-control form-control-lg" type="text" placeholder="Title"><br><br><br>
+
+
+        <select name="category" id="dropdown" class="form-control form-control-lg">
+            <!-- <option value="Technology">Technology</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Learning">Learning</option> -->
+
+        </select>
+        <br><br><br>
+
+
+
+        <!-- <label>Description:</label> <br> -->
+        <textarea id="description" class="form-control form-control-lg" rows="3" placeholder="What's up?"
+            name="body"></textarea> <br><br><br>
+
+
+        <!-- <label>Author:</label> <br> -->
+        <!-- Large input -->
+        <input class="form-control form-control-lg" type="text" name="author" placeholder="Author"><br><br><br>
+
+
+        <!-- <label>Phone:</label> <br> -->
+        <!-- Large input -->
+
+        <div class="input-default-wrapper mt-3">
+            <input type="file" name="image" id="file-with-current" class="input-default-js">
+        </div>
+        <br><br>
+
+        <input id="btnSubmit" type="submit" class="btn btn-primary btn-lg" value="Submit">
+
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+
+        getAllCategory()
+
+
+        function getAllCategory() {
+            $.ajax({
+                url: '/ourblog/category/data/',
+                type: 'get',
+                dataType: 'JSON',
+                success: (response) => {
+                    //  alert('ready.......................')
+                    var dropdown = $('#dropdown')
+
+                    response.result.forEach(element => {
+                        dropdown.append(
+                            ` <option value=${element.name}>${element.name}</option>`)
+
+                    });
+                    //alert("" + response.result.length)
+                }
+            })
+        }
+
+        // $("#btnAdd").click(function () {
+        //     // alert("response")
+        //     var name = $("#catName").val()
+
+
+
+        // })
+    })
+</script>
+
+
+<%- include footer.ejs %>
