@@ -3,20 +3,86 @@
 <% allBlog.forEach((blog)=>{ %>
 
 <div class="blogDiv">
-
   <h2><%= blog.title %></h2>
   <h6><%= blog.author %></h6>
   <img align=center id="blogImage" src="/public/images/upload/<%= blog.image %>" alt="">
 
-  <p id="blogdescription"><%= blog.body %>
+  <p id="blogdescription"> <%= blog.body.substring(0,200) %>
   </p>
 
+
+
+  <div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable"
+    style="height:30px;font-size:12px;float: left;">
+      Launch demo modal
+    </button>
+
+
+
+    <button id="<%= blog.id %>" class="btn btn-primary read-more" style="height:30px;font-size:12px;float: right;">
+      Read More....</button>
+  </div>
 </div>
+
+
 <% })%>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bangladesh (/ˌbæŋɡləˈdɛʃ, ˌbɑːŋ-/; Bengali: বাংলাদেশ Bangladesh [ˈbaŋladeʃ] (About this soundlisten), lit. "The country of Bengal"), officially the People's Republic of Bangladesh (গণপ্রজাতন্ত্রী বাংলাদেশ Gônoprojatontri Bangladesh), is a sovereign country in South Asia. It shares land borders with India and Myanmar (Burma). The country's maritime territory in the Bay of Bengal is roughly equal to the size of its land area.[11] Bangladesh is the world's eighth most populous country as well as its most densely-populated, to the exclusion of small island nations and city-states. Dhaka is its capital and largest city, followed by Chittagong, which has the country's largest port.
+
+        Bangladesh forms the largest and eastern part of the Bengal region.[12] The country's geography is dominated by the Bengal delta with many rivers; while hilly and mountainous areas make up the north-east and south-east. The country also has one of the longest beaches and the largest mangrove forest in the world. The endangered Bengal tiger is a national symbol. Bangladeshis include people from a range of ethnic groups and religions. Bengalis, who speak the official Bengali language, make up 98% of the population.[2][3] The politically dominant Bengali Muslims make the nation the world's third largest Muslim-majority country. Islam is the official religion of Bangladesh, but the constitution gurantees freedom of religion among other democratic rights.[13][14]
+        
+        In the ancient and classical period of the Indian subcontinent, the territory of Bangladesh was home to many principalities, including Gangaridai, Vanga, Pundra, Gauda, Samatata and Harikela. It was also a Mauryan province. The principalities were notable for their overseas trade, which involved contacts with the Roman world, the export of fine muslin and silk to the Middle East, and spreading philosophy and art to Southeast Asia. The principalities dominated the Bengal delta with powerful navies. The Pala Empire, the Chandra dynasty and the Sena dynasty were the last pre-Islamic Bengali middle kingdoms. Islam became the largest religion in Bengal during the period spanning the Delhi Sultanate, the Bengal Sultanate and the Mughal Empire. The region became a cosmopolitan Islamic realm. Mughal Bengal generated 12% of the world's GDP,[15][16][17] larger than the entirety of western Europe.[18] The region was later administered by the United Kingdom as part of the Bengal Presidency (1757-1905; 1912-1947) and Eastern Bengal and Assam Province (1905-1912) in British India. Bengal had the largest GDP in the British Raj.[19] In 1947, the Bengal Legislative Council and the Bengal Legislative Assembly voted on the Partition of Bengal, while a referendum caused the Sylhet region to join East Bengal. The area became part of the Dominion of Pakistan and was renamed East Pakistan. Beginning with the Bengali Language Movement in 1952, the pro-democracy movement in East Pakistan capitalized on Bengali nationalism, resulting in the Bangladesh Liberation War in 1971. After independence was achieved, a parliamentary republic was established. A presidential government was in place between 1975 and 1990, followed by a return to parliamentary government. Formerly the world's fifth largest democracy; Bangladesh's government has been increasingly autocratic.[20] Freedom House classifies Bangladesh as "Partly Free".[21] Some of the challenges facing Bangladesh include poverty, bureaucratic and political corruption, terrorism, illiteracy, and vulnerability to climate change.
+        
+        Bangladesh is a unitary state with a unicameral parliament called the Jatiya Sangshad. The country is divided into eight administrative divisions and sixty-four districts. Although an LDC, the economy has posted one of the fastest real GDP growth rates. The economy is reputed for its huge textile industry, the pioneering of microcredit and natural gas reserves. In the field of human development, Bangladesh has progressed ahead of its regional neighbors in life expectancy, maternal and child health, and gender equality. Bangladesh is a member of several multilateral organizations, including the UN, WTO, IMF, the World Bank, ADB, OIC and IDB. It is a founding member of the South Asian Association for Regional Cooperation and the Bay of Bengal Initiative for Multi-Sectoral Technical and Economic Cooperation. Bangladesh is also a leading contributor of United Nations peacekeeping forces. Southeastern Bangladesh is home to one of the world's largest refugee populations, due to a conflict in neighboring Myanmar's Rakhine State (Arakan). Bangladesh has been considered as an emerging middle power.[22] The country has a significant Bangladeshi 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<p style="margin-bottom:50px;"> </p>>
 
 
 
+
+
+
+
+<script>
+  $(document).ready(function () {
+
+    // $('div[id^="tag"]').on('click', function () {
+    //   alert(this.id); // Get the ID
+    //   alert($(this).attr('value')); // Get the value attribute
+    // });
+    $('.read-more').on('click', function () {
+      var id = $(this).attr('id');
+      //alert(`/ourblog/showsinglepost/`)
+
+      window.location.assign(`/ourblog/showsinglepost/${id}`)
+      //  window.location.href(`/ourblog/showsinglepost/${id}`)
+
+
+    })
+
+  })
+</script>
 
 
 

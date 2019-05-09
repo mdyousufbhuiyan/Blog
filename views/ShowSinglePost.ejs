@@ -1,0 +1,116 @@
+<%- include header.ejs %>
+
+<link href="/public/css/showSinglePost.css" rel="stylesheet" type="text/css">
+
+
+<!-- <% result.forEach((blog)=>{ %>
+
+    <div class="blogDiv">
+    
+      <h2><%= blog.title %></h2>
+      <h6><%= blog.author %></h6>
+      <img align=center id="blogImage" src="/public/images/upload/<%= blog.image %>" alt="">
+    
+      <p id="blogdescription"><%= blog.body %>
+      </p>
+    
+    </div>
+    <% })%> -->
+
+
+<% result.forEach((blog)=>{ %>
+<div id="parent-div">
+  <div id="headDiv">
+    <h1><%= blog.title %></h1>
+    <h4><%= blog.author %></h4>
+    <img src="/public/images/upload/<%= blog.image %>" title="#" alter="<%= blog.image %>" />
+
+    <p><%= (blog.body) %></p>
+
+
+
+
+
+    <div style="margin-bottom:130px;margin-top: 40px;">
+
+      <label style="font-size:30px;display: block;">Add Comment</label>
+      <div>
+        <p id="error" style="width:80%; color:red; font-size:18px;text-align:center;display: none;">Please Give All Valid Information
+        </p>
+       
+        <label style="width: 200px;font-size:20px;">Name:</label>
+        <input id="name" autocomplete="off" type="text" name="name" placeholder="Enter Your Name" style="width:40%;">
+      </div>
+
+      <div style="margin-top:30px;">
+
+        <label style="width: 200px; font-size:20px;">Email:</label>
+        <input placeholder="Enter Your Email" id="email" type="email" autocomplete="off" name="email"
+          style="width:40%;">
+      </div>
+
+
+      <div style="margin-top:30px;height: 100px;">
+
+        <label style="width: 200px; height: 100px; font-size:20px;vertical-align: center;">Body:</label>
+        <textarea id="body" style="width:40%; height: 100px;font-size:20px;color:black;" autocomplete="off"
+          placeholder="body"> </textarea>
+      </div>
+      <div style="width:30%;margin-left:auto;margin-right: auto;margin-top: 20px;">
+        <button id="<%= blog.id %>" style="margin-left:20px;height: 40px;" class="btn btn-primary add-comment">Add
+          Comment</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<% }) %>
+
+
+
+
+<script>
+  $(document).ready(function () {
+
+    $('.add-comment').on('click', function () {
+
+      var id = $(this).attr('id');
+      var name = $('#name').val();
+      var email = $('#email').val();
+      var body = $('#body').val();
+
+
+
+      $.ajax({
+        url: '/ourblog/showsinglepost/',
+        type: 'post',
+        dataType: 'JSON',
+        data: {
+          id,
+          name,
+          email,
+          body
+        },
+        success: (response) => {
+          var result = response.message;
+          $('#error').css('display','none')
+          if (result == 'error') {
+          $('#error').css('display','block')
+          } else {
+            $(document).ajaxStop(function () {
+              window.location.reload();
+
+            })
+            alert(result)
+          }
+        },
+        error: (error) => {
+          alert('Error Occured')
+        }
+      })
+    })
+  })
+</script>
+
+
+<%- include footer.ejs %>

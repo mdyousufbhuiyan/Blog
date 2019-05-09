@@ -42,7 +42,9 @@ const addCategory = (req, res, next) => {
         var er = {
             error: "error"
         }
-        res.json({error:"error"});
+        res.json({
+            error: "error"
+        });
         // return res.status(422).json({
         //     error: "error"
         // });
@@ -59,7 +61,9 @@ const addCategory = (req, res, next) => {
             //     Result: result.affectedRows
             // });
 
-            res.json({error:"success"});
+            res.json({
+                error: "success"
+            });
 
         });
     }

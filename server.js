@@ -8,12 +8,13 @@ const session = require('express-session')
 const expressValidation = require('express-validator')
 var multer = require('multer')
 var flash = require('connect-flash');
-var flash = require('connect-flash');
+
 
 const app = express();
 const router = require('./Api/Routes/blog')
 const addPostRouter = require('./Api/Routes/addpost')
 const categoryRouter = require('./Api/Routes/category')
+const ShowSinglePost = require('./Api/Routes/ShowSinglePage')
 
 const port = 3000;
 
@@ -30,7 +31,7 @@ app.set('views', path.join(__dirname, './views'))
 // // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-
+app.use(express.static('public'))
 app.use(cookieParser())
 app.use(expressValidation())
 
@@ -54,6 +55,7 @@ app.use('/ourblog/home', router)
 app.use('/ourblog/addpost', addPostRouter)
 app.use('/ourblog/addpost', addPostRouter)
 app.use('/ourblog/category', categoryRouter)
+app.use('/ourblog/showsinglepost', ShowSinglePost)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

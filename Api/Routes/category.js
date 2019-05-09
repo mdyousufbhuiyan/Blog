@@ -4,12 +4,11 @@ const categoryController = require('../Controller/category')
 const router = express();
 const { check, validationResult } = require('express-validator/check');
 
+const CategoryValidator= require('../Controller/Validation/Category')
+
 router.get('/', categoryController.getCategoryPage)
 router.get('/data/', categoryController.getAllCategory)
-router.post('/',[
-    // username must be an email
-    check('name').isLength({min:5})
-  ] ,categoryController.addCategory)
+router.post('/',CategoryValidator.validateCategory(),categoryController.addCategory)
 
 
 module.exports = router;

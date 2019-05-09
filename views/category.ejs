@@ -1,8 +1,8 @@
 <%- include header.ejs %>
 
 
-<body>
-    <div class="formHeadDiv" style="width:100%;display:inline-block;text-align: center">
+<div parent-div style="margin-top: 50px;margin-bottom: 50px;">
+    <div class="formHeadDiv" style="box-shadow:0px 0px 8px black; width:70%;text-align: center;margin: auto;padding-top: 100px ">
 
         <p id="nameValidation" style="color:red;font-size:15px;display: none;">Name Shoule Be More than 5 Character</p>
         <input id="catName" autocomplete="off" name="title" class="form-control form-control-lg" type="text"
@@ -15,46 +15,47 @@
         <br><br>
         <br><br>
         <br><br>
-
-        <script>
-            $(document).ready(function () {
-                $("#btnAdd").click(function () {
-                    // alert("response")
-                    var name = $("#catName").val()
-
-                    $.ajax({
-                        url: '/ourblog/category/',
-                        type: 'post',
-                        dataType: 'JSON',
-                        data: {
-                            name
-                        },
-                        success: (response) => {
-                            var result = response.error
-                            if (!result.localeCompare("error")) {
-                                $("#nameValidation").css('display','block') 
-                             //   alert(result);
-                            } else {
-                                $("#nameValidation").css('display','none')
-                               // alert(result);
-                                $(document).ajaxStop(function () {
-                                    window.location.reload();
-                                });
-
-                                // alert("" + response)
-                            }
-                        }
-                    })
-
-                })
-            })
-        </script>
-
     </div>
+    
+    <script>
+        $(document).ready(function () {
+            $("#btnAdd").click(function () {
+                // alert("response")
+                var name = $("#catName").val()
+
+                $.ajax({
+                    url: '/ourblog/category/',
+                    type: 'post',
+                    dataType: 'JSON',
+                    data: {
+                        name
+                    },
+                    success: (response) => {
+                        var result = response.error
+                        if (!result.localeCompare("error")) {
+                            $("#nameValidation").css('display', 'block')
+                            //   alert(result);
+                        } else {
+                            $("#nameValidation").css('display', 'none')
+                            // alert(result);
+                            $(document).ajaxStop(function () {
+                                window.location.reload();
+                            });
+
+                            // alert("" + response)
+                        }
+                    }
+                })
+
+            })
+        })
+    </script>
+
+</div>
 
 
 
-    <!-- <script>
+<!-- <script>
     $(document).ready(function () {
 
         $("#btnData").click(function () {
@@ -86,4 +87,4 @@
 </script> -->
 
 
-    <%- include footer.ejs %>
+<%- include footer.ejs %>
