@@ -1,0 +1,230 @@
+<%- include header.ejs %>
+
+<link href="/public/css/registration.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/public/download/datepicker.css">
+
+
+
+
+
+
+<div class="registration">
+    <h2 class="registrationHeading"> Registration </h2>
+
+    <% if(errorResult){ %>
+    <h5 style="color:red;text-align:center;display:block;">Given Information is not valid</h5>
+    <% }else{ %>
+    <h5 style="color:red;text-align:center;display:none;">Given Information is not valid</h5>
+    <% } %>
+    <form method="POST" action="/ourblog/registration/" autocomplete="off" id="form">
+        <div class="form-group col">
+            <label for="inputName" class="col-sm-15 col-form-label"><strong>Name<strong style="color:red;">*</strong>
+            </label>
+            <div class="col-sm-15">
+                <input required type="text" class="form-control" id="inputName" value="<%= person.name %>" name="name"
+                    placeholder="Name">
+                <p id="nameValidation" style="color:red;text-align: center;display: none;" class="col-sm-15">
+                    Name is Required
+                </p>
+            </div>
+        </div>
+
+
+        <div class="form-group col">
+            <label for="inputEmail" class="col-sm-15 col-form-label"><strong> Email<strong style="color:red;">*</strong>
+                </strong></label>
+            <div class="col-sm-15">
+                <input type="email" class="form-control" value="<%= person.email %>" name="email" id="inputEmail"
+                    placeholder="Email">
+
+                <% if(isEmailAlreadyExist){ %>
+                <p id="emailValidation" style="color:red;text-align: center;display: block;" class="col-sm-15">
+                    Email Already Exist
+                </p>
+                <% }else{ %>
+                <p id="emailValidation" style="color:red;text-align: center;display: none;" class="col-sm-15">
+                    Email is Invalid
+                </p>
+                <% } %>
+            </div>
+        </div>
+
+
+
+        <div class="form-group col">
+            <label for="inputPassword1" class="col-sm-15 col-form-label"> <strong> New Password <strong
+                        style="color:red;">*</strong> </strong></label>
+            <div class="col-sm-15">
+                <input required type="password" name="password" class="form-control" id="inputPassword1"
+                    value="<%= person.password %>" placeholder="New Password">
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="inputPassword2" class="col-sm-15 col-form-label"> <strong>Confirm Password<strong
+                        style="color:red;">*</strong> </strong></label>
+            <div class="col-sm-15">
+                <input required type="password" class="form-control" id="inputPassword2" value="<%= person.password %>"
+                    placeholder="Confirm Password">
+                <p id="passwordValidation" style="color:red;text-align: center;display:none;" class="col-sm-15">
+                    Password Mismatch
+                </p>
+            </div>
+        </div>
+
+
+
+        <div class="form-group col">
+            <label for="datepicker" class="col-sm-15 col-form-label"> <strong>Date Of Birth<strong
+                        style="color:red;">*</strong> </strong></label>
+            <input name="dateofbirth" required placeholder="Date Of Birth" id="datePicker" type="text"
+                value="<%= person.dateofbirth %>" class="datepicker form-control">
+            <p id="dateOfBirthValidation" style="color:red;text-align: center;display:none;" class="col-sm-15">
+                Date Of Birth Is Required
+            </p>
+
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+
+
+
+
+        <fieldset class="form-group">
+            <div class="col">
+                <legend class="col-form-label col-sm-15 pt-0"><strong>Select Gender<strong style="color:red;">*</strong>
+                    </strong></legend>
+                <p id="genderValidation" style="color:red;text-align: left;display:none;" class="col-sm-15">
+                    Gender Is Required
+                </p>
+                <div class="col-sm-15">
+                    <div class="form-check">
+                        <% if(person.gender=='male'){ %>
+                        <input class="form-check-input" checked type="radio" name="gender" id="male" value="male">
+                        <% }else{ %>
+                        <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                        <% } %>
+                        <label class="form-check-label" for="male">
+                            <strong> Male</strong>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <% if(person.gender=='female'){ %>
+                        <input class="form-check-input" checked type="radio" name="gender" id="female" value="female">
+                        <% }else{ %>
+                        <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                        <% } %>
+                        <label class="form-check-label" for="female">
+                            <strong>Female</strong>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+
+
+
+        <!-- <div class="form-group col">
+            <label for="inputDate" class="col-sm-15 col-form-label"> <strong>Date Picker<strong
+                        style="color:red;">*</strong> </strong></label>
+            <div class="col-sm-15">
+                <input type="date" class="form-control" id="inputDate" placeholder="xx/xx/xxxx">
+            </div>
+        </div> -->
+
+
+
+        <div class="form-group row btn-registration">
+            <div class="col-sm-10">
+                <button id="btnSubmit" onclick="return false" type="submit" class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+
+    </form>
+
+
+
+
+</div>
+
+<script>
+    $(function () {
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            min: new Date('2017-03-10'),
+            max: new Date()
+        });
+    })
+
+    $(document).ready(function () {
+        $('#btnSubmit').click(function () {
+            var name = $('#inputName').val();
+            var email = $('#inputEmail').val();
+            var password = $('#inputPassword1').val();
+            var newPassword = $('#inputPassword2').val();
+            var male = $('#male').val();
+            var female = $('#female').val();
+            var datePicker = $('#datePicker').val();
+            var radioValue = $("input[name='gender']:checked").val();
+            var flag = true;
+
+            if (password != newPassword) {
+                flag = false;
+                $('#passwordValidation').css('display', 'block')
+            } else {
+                $('#passwordValidation').css('display', 'none')
+            }
+            if (name.length == 0) {
+                flag = false;
+                $('#nameValidation').css('display', 'block');
+            } else {
+                $('#nameValidation').css('display', 'none');
+            }
+
+
+            if (ValidateEmail(email)) {
+                $('#emailValidation').css('display', 'none')
+            } else {
+                flag = false;
+                $('#emailValidation').css('display', 'block')
+            }
+
+            if (datePicker.length == 0) {
+                flag = false;
+                $('#dateOfBirthValidation').css('display', 'block')
+            } else {
+                $('#dateOfBirthValidation').css('display', 'none ')
+            }
+
+            if (radioValue) {
+                $('#genderValidation').css('display', 'none')
+            } else {
+                $('#genderValidation').css('display', 'block')
+                flag = false;
+            }
+
+            if (flag) {
+                $("#form").submit();
+            }
+
+
+        })
+
+        function ValidateEmail(email) {
+            filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if (filter.test(email)) {
+                // Yay! valid
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    })
+</script>
+
+
+<script src="/public/download/bootstrap-datepicker.js"></script>
+
+<%- include footer.ejs %>

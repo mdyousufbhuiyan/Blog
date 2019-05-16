@@ -15,6 +15,10 @@ const router = require('./Api/Routes/blog')
 const addPostRouter = require('./Api/Routes/addpost')
 const categoryRouter = require('./Api/Routes/category')
 const ShowSinglePost = require('./Api/Routes/ShowSinglePage')
+const CommentRouter = require('./Api/Routes/comment')
+const RegistrationRouter = require('./Api/Routes/registration')
+const LoginRouter = require('./Api/Routes/Login')
+
 
 const port = 3000;
 
@@ -56,6 +60,9 @@ app.use('/ourblog/addpost', addPostRouter)
 app.use('/ourblog/addpost', addPostRouter)
 app.use('/ourblog/category', categoryRouter)
 app.use('/ourblog/showsinglepost', ShowSinglePost)
+app.use('/ourblog/comment', CommentRouter);
+app.use('/ourblog/registration', RegistrationRouter)
+app.use('/ourblog/login', LoginRouter)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

@@ -8,9 +8,6 @@ const validateUserComment = require('../Controller/Validation/Comment')
 
 
 Router.get('/:id', ShowSinglePost.getSinglePost)
-Router.post('/', validateUserComment(), ShowSinglePost.addPost)
-//Router.post('/:id', )
-
 
 
 
