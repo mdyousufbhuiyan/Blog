@@ -8,6 +8,10 @@ const {
 
 const getSinglePost = (req, res, next) => {
     let id = req.params.id
+
+
+    //  res.redirect('/ourblog/login/')
+
     var rawQuery = `Select * from add_blog where id = ${id} `
     Blog.query(rawQuery, (error, result, field) => {
         if (error) {

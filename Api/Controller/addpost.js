@@ -22,6 +22,8 @@ var upload = multer({
 }).single("image");
 
 let showAddPostPage = (req, res, next) => {
+  // console.log('Session Name From Addpost  : ' + req.session.ourid);
+
   res.render("addpost");
 };
 

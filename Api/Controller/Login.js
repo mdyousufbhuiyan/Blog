@@ -8,6 +8,9 @@ const Blog = require('../model/mysql_connection')
 
 
 const getLoginPage = (req, res, next) => {
+
+    // console.log(`getLoginPage  ${req.session.name}`);
+
     renderLoginPageWithValue(res, getLoginObj(null, null), false)
 
 
@@ -29,9 +32,19 @@ const logIn = (req, res, next) => {
 
         } else {
             if (result.length > 0) {
-                renderLoginPageWithValue(res, getLoginObj(null, null), false)
-            } else {
-                renderLoginPageWithValue(res, getLoginObj(email, password), true)
+                req.session.user = result;
+                let name = req.session.name;
+                let postId = req.session.postId;
+                if (name) {
+                    if (postId) {
+                        res.redirect(`/ourblog/${name}/${postId}`)
+                    } else {
+                        res.redirect(`/ourblog/${name}/`)
+                    }
+
+                } else
+                    res.redirect('/ourblog/home/');
+
             }
         }
 

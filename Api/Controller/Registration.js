@@ -49,10 +49,13 @@ const addMember = (req, res, next) => {
                     if (error) {
                         renderRegistrationPageWithValue(res, getPersonObject(name, email, password, dateofbirth, gender), true, false)
                     } else {
-                        renderRegistrationPageWithValue(res, getPersonObject(null, null, null, null, null), false, false)
+                        // renderRegistrationPageWithValue(res, getPersonObject(null, null, null, null, null), false, false)
+
+                        res.redirect('/ourblog/login/')
+
                     }
                 })
-                renderRegistrationPageWithValue(res, getPersonObject(null, null, null, null, null), false, false)
+
             }
         })
     }

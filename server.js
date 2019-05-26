@@ -11,6 +11,9 @@ var flash = require('connect-flash');
 
 
 const app = express();
+
+
+
 const router = require('./Api/Routes/blog')
 const addPostRouter = require('./Api/Routes/addpost')
 const categoryRouter = require('./Api/Routes/category')
@@ -39,14 +42,37 @@ app.use(express.static('public'))
 app.use(cookieParser())
 app.use(expressValidation())
 
+
+
 app.use(session({
+    key: 'user_sid',
     secret: 'secret',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
-        secure: true
+        // secure: true,
+        expires: 20000
     }
 }))
+
+
+app.use((req, res, next) => {
+    if (req.cookies.user_sid && !req.session.user) {
+      //  res.clearCookie('user_sid')
+    }
+    next()
+})
+
+
+// app.use(session({
+//     secret: 'secret',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//         secure: true
+//     }
+// }))
+
 
 
 app.use(morgan('dev'))
